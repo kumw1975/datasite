@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,15 +42,11 @@ public class UserService {
 
     Map<String, User> userMap = allUsers.stream().collect(Collectors.toMap(User::getId,user -> user));
 
-    projectUsers.stream()
-      .filter(projectUser -> StringUtils.hasText(projectUser.getUserId()))
-      .map(projectUser -> {
-        User summary = userMap.get(projectUser.getUserId());
-        List<String> projects = summary.getProjects();
-        projects.add(projectUser.getProjectId());
-        return summary;
-      }).collect(Collectors.toList());
-
+    for (ProjectUser user : projectUsers) {
+      if (Objects.nonNull(user.getUserId())){
+        userMap.get(user.getUserId()).getProjects().add(user.getProjectId());
+      }
+    }
     return allUsers;
   }
 
