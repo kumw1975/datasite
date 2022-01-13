@@ -8,6 +8,15 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/*
+  Test Cases
+  implement a new service with a single endpoint [get-users]
+  return all the users [registered and unregistered]
+  include the project ids the users belong to.
+  If users do not belong to a project, project ids attribute would contain an empty array
+  in the response payload.
+*/
+
 public class UserServiceTest {
 
   private UserService userService;
@@ -23,12 +32,12 @@ public class UserServiceTest {
   }
 
   @Test
-  public void shouldReturnRegisteredUser() {
+  public void shouldReturnRegisteredUsers() {
     assertEquals(userService.getUsers().get(0).getId(), "1");
   }
 
   @Test
-  public void shouldReturnUnRegisteredUser() {
+  public void shouldReturnUnRegisteredUsers() {
     assertEquals(userService.getUsers().get(34).getId(), "215");
   }
 

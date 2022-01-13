@@ -43,8 +43,10 @@ public class UserService {
     Map<String, User> userMap = allUsers.stream().collect(Collectors.toMap(User::getId,user -> user));
 
     for (ProjectUser user : projectUsers) {
-      if (Objects.nonNull(user.getUserId())){
-        userMap.get(user.getUserId()).getProjects().add(user.getProjectId());
+      if (StringUtils.hasText(user.getUserId())){
+        userMap.get(user.getUserId())
+          .getProjects()
+          .add(user.getProjectId());
       }
     }
     return allUsers;
